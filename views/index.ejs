@@ -1,0 +1,33 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Increment Counter</title>
+</head>
+<body>
+    <h1>Counter: <%= counter %></h1>
+    <form action="/other/increment" method="POST">
+        <button type="submit">Increment Counter</button>
+    </form>
+
+    <script>
+        document.getElementById("incrementButton").addEventListener("click", () => {
+            fetch("/other/increment", {
+                method: "POST"
+            })
+            .then(response => response.json())
+            .then(data => {
+                alert(data.message); // Show the response from the server
+                // You can optionally update the counter displayed on the page
+                document.querySelector("h1").textContent = "Counter: " + data.counter;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+        });
+    </script>
+</body>
+</html>
